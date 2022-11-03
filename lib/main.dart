@@ -1,5 +1,6 @@
 import 'package:app_libros/pages/login_page.dart';
 import 'package:app_libros/pages/register_page.dart';
+import 'package:app_libros/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      home: const SplashPage(),
     );
   }
 }

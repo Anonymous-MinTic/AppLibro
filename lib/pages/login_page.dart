@@ -1,5 +1,10 @@
+import 'dart:convert';
 import 'package:app_libros/pages/register_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/user.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,6 +17,40 @@ class _LoginPageState extends State<LoginPage> {
 
   final _email = TextEditingController();
   final _password = TextEditingController();
+
+  User userLoad = User.Empty();
+
+  @override
+  void initState(){
+    _getUser();
+    super.initState();
+  }
+
+  _getUser() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Map<String, dynamic> userMap = jsonDecode(prefs.getString("user")!);
+    userLoad = User.fromJson(userMap);
+}
+
+
+  void _showMsg(String msg){
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        action: SnackBarAction(
+            label: 'Aceptar', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
+
+  void _validateUser(){
+    if (_email.text == userLoad.email && _password.text == userLoad.password){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+    }else{
+      _showMsg("correo o contraseña incorrecta");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +87,9 @@ class _LoginPageState extends State<LoginPage> {
                 height: 16.0,
               ),
               ElevatedButton(
-                  onPressed: () {}, child: const Text('Inicia Sesión')),
+                  onPressed: () {
+                    _validateUser();
+                  }, child: const Text('Inicia Sesión')),
               TextButton(
                 style: TextButton.styleFrom(
                     textStyle: const TextStyle(

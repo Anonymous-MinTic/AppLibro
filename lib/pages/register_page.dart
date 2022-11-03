@@ -1,6 +1,10 @@
+import 'package:app_libros/models/user.dart';
+import 'package:app_libros/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -52,20 +56,48 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  void _showMsg(String msg){
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        action: SnackBarAction(
+          label: 'Aceptar', onPressed: scaffold.hideCurrentSnackBar),
+      ),
+    );
+  }
+
+  void saveUser(User user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("user", jsonEncode(user));
+  }
+
+
   void _onRegisteButtonClicked() {
     setState(() {
-      String genre = "Masculino";
-      if (_genre == Genre.femenino) {
-        genre = "Femenino";
+      if (_password.text == _repPassword.text) {
+        String genre = "Masculino";
+        String favoritos = "";
+
+        if (_genre == Genre.femenino) {
+          genre = "Femenino";
+        }
+
+        if (_aventura) favoritos = "$favoritos Aventura";
+        if (_fantasia) favoritos = "$favoritos Fantasia";
+        if (_terror) favoritos = "$favoritos Terror";
+
+        var user = User(
+            _name.text, _email.text, _password.text, genre, favoritos, _date);
+        saveUser(user);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+
+
+        /*_data =
+          "Nombre:  ${_name.text} \nCorreo Electronico:  ${_email.text} \nGenero:  $genre favorito: $favoritos \nFecha de Nacimiento: $_date";*/
+      } else {
+        _showMsg('Las contraseñas deben ser iguales');
       }
-
-      String favoritos = "";
-      if (_aventura) favoritos = "$favoritos Aventura";
-      if (_fantasia) favoritos = "$favoritos Fantasia";
-      if (_terror) favoritos = "$favoritos Terror";
-
-      _data =
-          "Nombre:  ${_name.text} \nCorreo Electronico:  ${_email.text} \nGenero:  $genre favorito: $favoritos \nFecha de Nacimiento: $_date";
     });
   }
 
@@ -201,9 +233,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                   child: const Text("Registrar"),
                 ),
-                Text(_data,
+                /*Text(_data,
                     style: const TextStyle(
-                        fontSize: 12, fontStyle: FontStyle.italic))
+                        fontSize: 12, fontStyle: FontStyle.italic))*/
               ],
             ),
           ),
