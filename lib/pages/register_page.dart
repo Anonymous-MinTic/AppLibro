@@ -25,12 +25,12 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _fantasia = false;
   bool _terror = false;
 
-  String buttonMsg = "Fecha de Nacimiento";
+  String buttonMsg = "Fecha de nacimiento";
 
   String _date = "";
 
-  String _dateConverter(DateTime newDate){
-    final DateFormat formatter = DateFormat("yyyy-MM-dd");
+  String _dateConverter(DateTime newDate) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String dateFormatted = formatter.format(newDate);
     return dateFormatted;
   }
@@ -38,16 +38,16 @@ class _RegisterPageState extends State<RegisterPage> {
   void _showSelectDate() async {
     final DateTime? newDate = await showDatePicker(
       context: context,
-      locale: const Locale("es","CO"),
+      locale: const Locale("es", "CO"),
       initialDate: DateTime(2022, 8),
       firstDate: DateTime(1900, 1),
-      lastDate: DateTime(2022, 1),
-      helpText: "Fecha de Nacimiento",
+      lastDate: DateTime(2022, 12),
+      helpText: "Fecha de nacimiento",
     );
     if (newDate != null) {
       setState(() {
         _date = _dateConverter(newDate);
-        buttonMsg = "Fecha de Nacimiento: ${_date.toString()}";
+        buttonMsg = "Fecha de nacimiento: ${_date.toString()}";
       });
     }
   }
