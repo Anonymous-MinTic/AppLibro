@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "817932222161",
+    "project_id": "app-libros-55494",
+    "storage_bucket": "app-libros-55494.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817932222161:android:bbf44f42e9d44383554ff0",
+        "android_client_info": {
+          "package_name": "com.davis.app_libros"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817932222161-pac7tcq248af21ukb97htrnrd4sfn9l4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBmN-SK1UiSpeGv8v8Lv0-4oWkA7VG84g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817932222161-pac7tcq248af21ukb97htrnrd4sfn9l4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
