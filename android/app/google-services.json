@@ -29,6 +29,13 @@
             {
               "client_id": "817932222161-pac7tcq248af21ukb97htrnrd4sfn9l4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "817932222161-ak0psj9arakgbc04r8f9qgcu61knlhad.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.davis.appLibros"
+              }
             }
           ]
         }

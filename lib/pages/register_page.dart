@@ -1,5 +1,6 @@
 import 'package:app_libros/models/user.dart';
 import 'package:app_libros/pages/login_page.dart';
+import 'package:app_libros/repository/firebase_api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +17,10 @@ class RegisterPage extends StatefulWidget {
 enum Genre { masculino, femenino }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  final FirebaseApi _firebaseApi = FirebaseApi();
+
+
   final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
@@ -68,8 +73,10 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void saveUser(User user) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("user", jsonEncode(user));
+
+    var result = await _firebaseApi.registerUser(user.email, user.password);
+    /*SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("user", jsonEncode(user));*/
   }
 
 
