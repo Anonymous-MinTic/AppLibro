@@ -75,6 +75,10 @@ class _RegisterPageState extends State<RegisterPage> {
   void saveUser(User user) async {
 
     var result = await _firebaseApi.registerUser(user.email, user.password);
+    String msg = "";
+    if (result == "invalid-email") { msg = "El e-mail esta mal escrito";}
+
+    _showMsg(msg);
     /*SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("user", jsonEncode(user));*/
   }
